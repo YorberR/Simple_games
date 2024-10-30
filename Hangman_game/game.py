@@ -4,8 +4,6 @@
 
 import tkinter as tk
 import random
-import platform
-import os
 
 class HangmanGame:
     def __init__(self, master):
@@ -22,6 +20,8 @@ class HangmanGame:
         self.attempts = 10
         self.guessed_letters = set()
 
+        self.canvas = tk.Canvas(self.master, width=200, height=200)
+        self.canvas.pack(pady=20)
         self.label_word = tk.Label(self.master, text=" ".join(self.word_list_underscores), font=('Helvetica', 18))
         self.label_word.pack(pady=20)
         self.entry_letter = tk.Entry(self.master, font=('Helvetica', 14))
@@ -31,12 +31,29 @@ class HangmanGame:
         self.label_message = tk.Label(self.master, text="", font=('Helvetica', 14))
         self.label_message.pack(pady=20)
 
+        self.parts = [
+            self.canvas.create_line(50, 150, 150, 150, state='hidden'),  # base
+            self.canvas.create_line(100, 150, 100, 50, state='hidden'),  # vertical pole
+            self.canvas.create_line(100, 50, 150, 50, state='hidden'),   # horizontal pole
+            self.canvas.create_line(150, 50, 150, 70, state='hidden'),   # rope
+            self.canvas.create_oval(140, 70, 160, 90, state='hidden'),   # head
+            self.canvas.create_line(150, 90, 150, 120, state='hidden'),  # body
+            self.canvas.create_line(150, 100, 140, 110, state='hidden'), # left arm
+            self.canvas.create_line(150, 100, 160, 110, state='hidden'), # right arm
+            self.canvas.create_line(150, 120, 140, 130, state='hidden'), # left leg
+            self.canvas.create_line(150, 120, 160, 130, state='hidden')  # right leg
+        ]
+
     def read(self, info):
         words = []
         with open(info, "r") as f:
             for line in f:
                 words.append(line.strip().upper())
         return words
+
+    def draw_hangman(self):
+        if 10 - self.attempts < len(self.parts):  # Asegúrate de que el índice no esté fuera de rango
+            self.canvas.itemconfig(self.parts[10 - self.attempts], state='normal')
 
     def check_letter(self):
         guess = self.entry_letter.get().strip().upper()
@@ -54,13 +71,25 @@ class HangmanGame:
             self.label_word.config(text=" ".join(self.word_list_underscores))
             if "_" not in self.word_list_underscores:
                 self.label_message.config(text="Ganaste, la palabra era " + self.word_random)
-                self.reset_game()
+                self.show_end_game_message("Ganaste")
         else:
             self.attempts -= 1
             self.label_message.config(text=f"Letra incorrecta. Intentos restantes: {self.attempts}")
+            self.draw_hangman()
             if self.attempts == 0:
                 self.label_message.config(text=f"Perdiste, la palabra era {self.word_random}")
-                self.reset_game()
+                self.show_end_game_message("Perdiste")
+
+    def show_end_game_message(self, result):
+        for part in self.parts:
+            self.canvas.itemconfig(part, state='normal')
+        self.label_message.config(text=f"{result}, la palabra era {self.word_random}")
+        self.entry_letter.config(state='disabled')
+        self.button_check.config(state='disabled')
+        self.button_play_again = tk.Button(self.master, text="Jugar de nuevo", command=self.reset_game)
+        self.button_play_again.pack(pady=10)
+        self.button_exit = tk.Button(self.master, text="Salir", command=self.master.quit)
+        self.button_exit.pack(pady=10)
 
     def reset_game(self):
         self.word_random = random.choice(self.word_list)
@@ -70,9 +99,16 @@ class HangmanGame:
             if not self.lyrics_dict.get(letter):
                 self.lyrics_dict[letter] = []
             self.lyrics_dict[letter].append(idx)
-        self.attempts = 10
+        self.attempts = 10  # Restablece los intentos a 10
         self.guessed_letters = set()
         self.label_word.config(text=" ".join(self.word_list_underscores))
+        self.label_message.config(text="")
+        self.entry_letter.config(state='normal')
+        self.button_check.config(state='normal')
+        for part in self.parts:
+            self.canvas.itemconfig(part, state='hidden')
+        self.button_play_again.pack_forget()
+        self.button_exit.pack_forget()
 
 if __name__ == "__main__":
     root = tk.Tk()
