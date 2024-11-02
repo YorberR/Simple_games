@@ -30,6 +30,8 @@ class HangmanGame:
         self.button_check.pack(pady=10)
         self.label_message = tk.Label(self.master, text="", font=('Helvetica', 14))
         self.label_message.pack(pady=20)
+        self.label_guessed = tk.Label(self.master, text="Letras utilizadas: ", font=('Helvetica', 14))
+        self.label_guessed.pack(pady=10)
 
         self.parts = [
             self.canvas.create_line(50, 150, 150, 150, state='hidden'),  # base
@@ -52,7 +54,7 @@ class HangmanGame:
         return words
 
     def draw_hangman(self):
-        if 10 - self.attempts < len(self.parts):  # Asegúrate de que el índice no esté fuera de rango
+        if 10 - self.attempts < len(self.parts):  
             self.canvas.itemconfig(self.parts[10 - self.attempts], state='normal')
 
     def check_letter(self):
@@ -65,6 +67,7 @@ class HangmanGame:
             self.label_message.config(text="Ya has ingresado esa letra.")
             return
         self.guessed_letters.add(guess)
+        self.label_guessed.config(text="Letras utilizadas: " + ", ".join(sorted(self.guessed_letters)))
         if guess in self.word_random:
             for idx in self.lyrics_dict[guess]:
                 self.word_list_underscores[idx] = guess
@@ -103,6 +106,7 @@ class HangmanGame:
         self.guessed_letters = set()
         self.label_word.config(text=" ".join(self.word_list_underscores))
         self.label_message.config(text="")
+        self.label_guessed.config(text="Letras adivinadas: ")
         self.entry_letter.config(state='normal')
         self.button_check.config(state='normal')
         for part in self.parts:
