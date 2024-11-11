@@ -5,26 +5,26 @@
 import pygame
 import random
 
-# Inicializar Pygame
 pygame.init()
 
-# Colores
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 GREEN = (0, 255, 0)
 RED = (255, 0, 0)
 
-# Dimensiones de la pantalla
 WIDTH, HEIGHT = 800, 600
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Hangman Game")
 
-# Fuente
 FONT = pygame.font.Font(None, 36)
 BUTTON_FONT = pygame.font.Font(None, 28)
 
-# Palabras
-word_list = ["PYTHON", "DEVELOPER", "HANGMAN", "GAME"]
+def read_words_from_file(filepath):
+    with open(filepath, 'r') as file:
+        words = [line.strip().upper() for line in file if line.strip()]
+    return words
+
+word_list = read_words_from_file('./DATA/DATA.txt')
 
 class HangmanGame:
     def __init__(self):

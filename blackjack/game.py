@@ -15,21 +15,17 @@
 import pygame
 import random
 
-# Inicializar Pygame
 pygame.init()
 
-# Colores
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 GREEN = (0, 255, 0)
 RED = (255, 0, 0)
 
-# Dimensiones de la pantalla
 WIDTH, HEIGHT = 800, 600
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Blackjack")
 
-# Fuente
 FONT = pygame.font.SysFont('Arial', 36)
 BUTTON_FONT = pygame.font.SysFont('Arial', 28)
 
