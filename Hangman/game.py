@@ -24,7 +24,7 @@ def read_words_from_file(filepath):
         words = [line.strip().upper() for line in file if line.strip()]
     return words
 
-word_list = read_words_from_file('./DATA/DATA.txt')
+word_list = read_words_from_file('./Hangman/DATA/DATA.txt')
 
 class HangmanGame:
     def __init__(self):
@@ -81,14 +81,19 @@ class HangmanGame:
     def render_buttons(self):
         play_again_button = pygame.Rect(WIDTH//3 - 100, HEIGHT//2 + 50, 200, 50)
         quit_button = pygame.Rect(2*WIDTH//3 - 100, HEIGHT//2 + 50, 200, 50)
+        menu_button = pygame.Rect(WIDTH//2 - 100, HEIGHT//2 + 150, 200, 50)
+
         pygame.draw.rect(screen, GREEN, play_again_button)
         pygame.draw.rect(screen, RED, quit_button)
+        pygame.draw.rect(screen, (0, 0, 255), menu_button)  # Botón azul para "Volver al Menú"
 
         play_again_text = BUTTON_FONT.render("Jugar de nuevo", True, WHITE)
         quit_text = BUTTON_FONT.render("Salir", True, WHITE)
+        menu_text = BUTTON_FONT.render("Menú", True, WHITE)
 
         screen.blit(play_again_text, (play_again_button.x + 25, play_again_button.y + 10))
         screen.blit(quit_text, (quit_button.x + 75, quit_button.y + 10))
+        screen.blit(menu_text, (menu_button.x + 75, menu_button.y + 10))
 
     def reset_game(self):
         self.__init__()
@@ -125,6 +130,8 @@ def main():
                     game.reset_game()
                 elif 2*WIDTH//3 - 100 < mouse_pos[0] < 2*WIDTH//3 + 100 and HEIGHT//2 + 50 < mouse_pos[1] < HEIGHT//2 + 100:
                     running = False
+                elif WIDTH//2 - 100 < mouse_pos[0] < WIDTH//2 + 100 and HEIGHT//2 + 150 < mouse_pos[1] < HEIGHT//2 + 200:
+                    return  
 
     pygame.quit()
 

@@ -112,18 +112,23 @@ def draw_buttons(game_over):
     else:
         play_again_button = pygame.Rect(WIDTH // 3 - 100, HEIGHT // 2 + 50, 200, 50)
         quit_button = pygame.Rect(2 * WIDTH // 3 - 100, HEIGHT // 2 + 50, 200, 50)
+        menu_button = pygame.Rect(WIDTH // 2 - 100, HEIGHT // 2 + 150, 200, 50)
 
         pygame.draw.rect(screen, GREEN, play_again_button)
         pygame.draw.rect(screen, RED, quit_button)
+        pygame.draw.rect(screen, (0, 0, 255), menu_button)  # Botón azul para "Volver al Menú"
 
         play_again_text = BUTTON_FONT.render("Jugar de nuevo", True, WHITE)
         quit_text = BUTTON_FONT.render("Salir", True, WHITE)
+        menu_text = BUTTON_FONT.render("Menú", True, WHITE)
 
         screen.blit(play_again_text, (play_again_button.x + 25, play_again_button.y + 10))
         screen.blit(quit_text, (quit_button.x + 75, quit_button.y + 10))
+        screen.blit(menu_text, (menu_button.x + 75, menu_button.y + 10))
 
         buttons['play_again'] = play_again_button
         buttons['quit'] = quit_button
+        buttons['menu'] = menu_button
 
     return buttons
 
@@ -171,6 +176,8 @@ def main():
                         game_over = False
                     elif buttons['quit'].collidepoint(mouse_pos):
                         running = False
+                    elif buttons['menu'].collidepoint(mouse_pos):
+                        return
 
         if game_over:
             render_text(f"Cartas del crupier: {', '.join(crupier)}", (50, 50))
