@@ -1,29 +1,52 @@
 # Simple Games
 
-This project contains three classic games implemented in Python using the Pygame library. The included games are:
+This repository contains three simple games developed in Python using Pygame:
 
-- Blackjack
-- Hangman
-- Rock, Paper, Scissors
-
-## Project Structure
-
-The project is organized into the following folders:
-
-- `Blackjack`: Contains the source code and resources for the Blackjack game.
-- `Hangman`: Contains the source code and resources for the Hangman game.
-- `Rock_Paper_Scissors`: Contains the source code and resources for the Rock, Paper, Scissors game.
-
-Each folder includes:
-
-- Game source code
-- Resource files (images, sounds, etc.)
-
-Additionally, there is a `requirements.txt` file in the main directory with the necessary dependencies.
+1. **Blackjack**
+2. **Hangman**
+3. **Rock, Paper, Scissors**
 
 ## Installation
 
-To install the required dependencies, navigate to the main project directory and run the following command:
+First, make sure you have Python 3.x installed on your system. Then, install the necessary dependencies using pip and the `requirements.txt` file:
 
 ```bash
 pip install -r requirements.txt
+```
+
+## How to Run
+To start the main menu and select a game, run the menu.py file:
+
+```bash
+python main.py
+```
+
+## Included Games
+
+### Blackjack
+A classic Blackjack game where you play against a computer-controlled dealer. To start this game, select "Game 1: Blackjack" from the main menu.
+
+### Hangman
+A Hangman game where you must guess the word before running out of attempts. To start this game, select "Game 2: Hangman" from the main menu.
+
+### Rock, Paper, Scissors
+A Rock, Paper, Scissors game where you play against the computer. You can choose the options with buttons. To start this game, select "Game 3: Rock, Paper, Scissors" from the main menu.
+
+## Contributions
+
+Contributions are welcome. If you want to contribute, please follow these steps:
+
+- Fork the repository.
+
+- Create a new branch for your feature (git checkout -b new-feature).
+
+- Commit your changes (git commit -m 'Add new feature').
+
+- Push to the branch (git push origin new-feature).
+
+- Open a Pull Request.
+
+## License
+This project is licensed under the MIT License.
+
+Thank you for using Simple Games! If you have any questions or suggestions, feel free to open an issue or make a pull request.
