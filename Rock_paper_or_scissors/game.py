@@ -7,19 +7,16 @@ import random
 
 pygame.init()
 
-# Colores
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 GREEN = (0, 255, 0)
 RED = (255, 0, 0)
 BLUE = (0, 0, 255)
 
-# Dimensiones de la pantalla
 WIDTH, HEIGHT = 800, 600
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Piedra, Papel o Tijeras")
 
-# Fuentes
 FONT = pygame.font.SysFont('Arial', 36)
 BUTTON_FONT = pygame.font.SysFont('Arial', 28)
 
@@ -71,9 +68,9 @@ class GameApp:
     def determine_winner(self, user_choice, computer_choice):
         if user_choice == computer_choice:
             return "Empate!"
-        elif (user_choice == "piedra" and computer_choice == "tijera") or \
-             (user_choice == "papel" and computer_choice == "piedra") or \
-             (user_choice == "tijera" and computer_choice == "papel"):
+        elif (user_choice == "Piedra" and computer_choice == "Tijera") or \
+            (user_choice == "Papel" and computer_choice == "Piedra") or \
+            (user_choice == "Tijera" and computer_choice == "Papel"):
             return "Ganaste!"
         else:
             return "Perdiste!"
@@ -92,11 +89,19 @@ class GameApp:
             start_text = BUTTON_FONT.render("Empezar juego", True, WHITE)
             screen.blit(start_text, (start_button.x + 20, start_button.y + 10))
         else:
-            score_text = FONT.render(f"🤖 Computadora: {self.computer_wins} 🙋 Tú: {self.user_wins}", True, BLACK)
+            score_text = FONT.render(f"Rondas jugadas: {self.rounds_played}, Computadora: {self.computer_wins} - Tú: {self.user_wins}", True, BLACK)
             screen.blit(score_text, (150, 50))
             if self.user_choice:
-                result_text = FONT.render(f"Tu elección: {self.user_choice}, Elección de la computadora: {self.computer_choice}. {self.result}", True, BLACK)
-                screen.blit(result_text, (50, 150))
+                lines = [
+                    f"Tu elección: {self.user_choice}",
+                    f"Elección de la computadora: {self.computer_choice}",
+                    f"Resultado: {self.result}"
+                ]
+                y_offset = 150
+                for line in lines:
+                    result_text = FONT.render(line, True, BLACK)
+                    screen.blit(result_text, (50, y_offset))
+                    y_offset += FONT.get_height()
             if not self.game_over:
                 rock_button = pygame.Rect(150, 400, 150, 50)
                 paper_button = pygame.Rect(325, 400, 150, 50)
@@ -116,13 +121,13 @@ class GameApp:
                 else:
                     winner = "¡La computadora ganó!"
                 result_text = FONT.render(winner, True, BLACK)
-                screen.blit(result_text, (150, 150))
+                screen.blit(result_text, (50, HEIGHT - 100)) 
                 play_again_button = pygame.Rect(100, 400, 200, 50)
                 quit_button = pygame.Rect(325, 400, 200, 50)
                 menu_button = pygame.Rect(550, 400, 200, 50)
                 pygame.draw.rect(screen, GREEN, play_again_button)
                 pygame.draw.rect(screen, RED, quit_button)
-                pygame.draw.rect(screen, BLUE, menu_button)  # Botón azul para "Volver al Menú"
+                pygame.draw.rect(screen, BLUE, menu_button)
                 play_again_text = BUTTON_FONT.render("Jugar de nuevo", True, WHITE)
                 quit_text = BUTTON_FONT.render("Salir", True, WHITE)
                 menu_text = BUTTON_FONT.render("Menú", True, WHITE)
@@ -168,14 +173,14 @@ def main():
                     elif 325 < mouse_pos[0] < 525 and 400 < mouse_pos[1] < 450:
                         running = False
                     elif 550 < mouse_pos[0] < 750 and 400 < mouse_pos[1] < 450:
-                        return  # Regresa al menú principal
+                        return
                 else:
                     if 150 < mouse_pos[0] < 300 and 400 < mouse_pos[1] < 450:
-                        game.play_round("piedra")
+                        game.play_round("Piedra")
                     elif 325 < mouse_pos[0] < 475 and 400 < mouse_pos[1] < 450:
-                        game.play_round("papel")
+                        game.play_round("Papel")
                     elif 500 < mouse_pos[0] < 650 and 400 < mouse_pos[1] < 450:
-                        game.play_round("tijera")
+                        game.play_round("Tijera")
 
         game.update_screen()
 
