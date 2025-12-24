@@ -1,10 +1,10 @@
-# Simple Games
+# Simple Games (Streamlit Edition)
 
-This repository contains three simple games developed in Python using Pygame:
+This repository contains three simple games adapted for the web using **Streamlit**:
 
-1. **Blackjack**
-2. **Hangman**
-3. **Rock, Paper, Scissors**
+1.  **Blackjack** 🃏
+2.  **Hangman** 🔤
+3.  **Rock, Paper, Scissors** ✂️
 
 ## Installation
 
@@ -15,38 +15,32 @@ pip install -r requirements.txt
 ```
 
 ## How to Run
-To start the main menu and select a game, run the menu.py file:
+
+To start the main menu and play the games, run the `streamlit_app.py` file:
 
 ```bash
-python main.py
+streamlit run streamlit_app.py
 ```
+
+This will open a tab in your web browser where you can interact with the application.
 
 ## Included Games
 
 ### Blackjack
-A classic Blackjack game where you play against a computer-controlled dealer. To start this game, select "Game 1: Blackjack" from the main menu.
+A classic Blackjack game where you play against a computer-controlled dealer. Try to get closer to 21 than the dealer without going over!
 
 ### Hangman
-A Hangman game where you must guess the word before running out of attempts. To start this game, select "Game 2: Hangman" from the main menu.
+A Hangman game where you must guess the word before running out of attempts. Uses a built-in word list.
 
 ### Rock, Paper, Scissors
-A Rock, Paper, Scissors game where you play against the computer. You can choose the options with buttons. To start this game, select "Game 3: Rock, Paper, Scissors" from the main menu.
+A quick Rock, Paper, Scissors game where you play against the computer. Tracks your wins and losses in the current session.
 
-## Contributions
+## Deployment
 
-Contributions are welcome. If you want to contribute, please follow these steps:
-
-- Fork the repository.
-
-- Create a new branch for your feature (git checkout -b new-feature).
-
-- Commit your changes (git commit -m 'Add new feature').
-
-- Push to the branch (git push origin new-feature).
-
-- Open a Pull Request.
+This app is ready to be deployed on **Streamlit Cloud**:
+1.  Push this repository to GitHub.
+2.  Log in to [share.streamlit.io](https://share.streamlit.io/).
+3.  Deploy the app by selecting your repository and point to `streamlit_app.py` as the main file.
 
 ## License
 This project is licensed under the MIT License.
-
-Thank you for using Simple Games! If you have any questions or suggestions, feel free to open an issue or make a pull request.
